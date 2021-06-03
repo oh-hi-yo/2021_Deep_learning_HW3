@@ -29,12 +29,14 @@ class environment():
         else:
             raise StopIteration('Current environment is done.')
 
+    # 將 class (類) 的方法轉換為 只能讀取的 屬性
     @property
     def state(self):
         s = np.zeros(8)
         s[self.s] = 1
         return s
 
+    # 重新實現一個屬性的 getter,但是背後其實是在操作私有屬性，外人不能直接拿或是改state，封裝特性
     @state.getter
     def state(self):
         s = np.zeros(8)
@@ -50,6 +52,13 @@ class environment():
 
     def render(self):
         print("current state is", self.render_state_list[self.s])
+        
+        
+    def close(self):
+        print("TA are very smart, friendly and handsome. peko ><")
+        
+    def aaa(self):
+        print("aaa")
 
 
 
