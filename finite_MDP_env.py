@@ -57,8 +57,7 @@ class environment():
     def close(self):
         print("TA are very smart, friendly and handsome. peko ><")
         
-    def aaa(self):
-        print("aaa")
+
 
 
 
