@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from finite_MDP_env import environment
-
+import gym
 
 
 
@@ -139,7 +139,7 @@ epsilon = 0.1             # epsilon-greedy, factor to explore randomly
 gamma = 0.9               # reward discount factor
 target_replace_iter = 100 # target network update frequency
 memory_capacity = 2000
-n_episodes = 400 # epoch
+n_episodes = 200 # epoch
 
 # Create DQN
 dqn = DQN(n_states, n_actions, n_hidden, batch_size, lr, epsilon, gamma, target_replace_iter, memory_capacity)
@@ -187,14 +187,58 @@ print(q_table)
 
 
 # to use colab
-#%%
-
-
-env = environment()
-print(env.state)
-
 
 #%%
+
+
+# print(q_table[0][0], q_table[0][1])
+print(q_table)
+
+# epsilon = 0.1
+# 0.1 * random choose action + 0.9 * max(q_value)
+# random choose action = (0.5 * q_value1 + 0.5 * q_value2)
+state_value = 0.1 * (0.5 * q_table[0][0] + 0.5 * q_table[0][1]) + 0.9 * (max(q_table[0]))
+# print(state_value)
+
+state_value_list = []
+for i in range(len(q_table)):
+    state_value = 0.1 * (0.5 * q_table[i][0] + 0.5 * q_table[i][1]) + 0.9 * (max(q_table[i]))
+    state_value_list.append(state_value)
+# print(state_value_list)
+
+
+state_value_list = np.array([state_value_list])
+# print(state_value_list)
+
+S_Q_table_DQN = np.concatenate((state_value_list.T, q_table), axis=1)
+print(S_Q_table_DQN)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
